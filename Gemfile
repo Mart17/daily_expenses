@@ -36,10 +36,12 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'rspec-rails'
+  gem 'rspec_junit_formatter', '~> 0.2.3'
   gem 'rubocop'
   gem 'capybara'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
+
 group :test do
   gem 'database_cleaner'
   gem 'launchy'
