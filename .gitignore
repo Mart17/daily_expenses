@@ -83,5 +83,8 @@ pickle-email-*.html
 # Notes for development
 TODO
 
+# Node modules
+/node_modules/*
+
 # tilde files are usually backup files from a text editor
 *~
