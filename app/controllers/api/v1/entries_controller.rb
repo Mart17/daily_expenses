@@ -1,4 +1,7 @@
-class Api::V1::EntriesController < ApplicationController
+class Api::V1::EntriesController < ApiController
+  #before_action :correct_user
+  # TODO use current_user.entry.build etc for user_id
+
 	def create
 		entry = Entry.create!(entry_params)
 
@@ -22,6 +25,10 @@ class Api::V1::EntriesController < ApplicationController
 	private
 
 	def entry_params
-		params.require(:entry).permit(:amount, :currency, :user_id)
+		params.require(:entry).permit(:amount, :currency)
 	end
+
+  def correct_user
+    # TODO current_user == ...
+  end
 end
