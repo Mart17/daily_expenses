@@ -11,5 +11,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable
 
+  has_many :entries
+
   validates_presence_of :name
 end
