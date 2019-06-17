@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe 'the signin process', type: :feature do
   let (:user) { create(:user, confirmation_token: nil,
                                          confirmed_at: nil,

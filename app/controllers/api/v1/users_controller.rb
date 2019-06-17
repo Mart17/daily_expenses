@@ -16,7 +16,7 @@ class Api::V1::UsersController < ApiController
 
   def correct_user
     unless current_user == @user
-      render status: :not_acceptable, json: { error: "You're not authorized to access this data" }
+      render status: :unauthorized, json: { error: "You're not authorized to access this data." }
     end
   end
 end
