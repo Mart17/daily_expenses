@@ -11,7 +11,7 @@ class Api::V1::EntriesController < ApiController
 	def update
 		@entry.update_attributes(entry_params)
 
-		render json: entry
+		render json: @entry
 	end
 
 	def destroy
@@ -23,7 +23,7 @@ class Api::V1::EntriesController < ApiController
 	private
 
 	def entry_params
-		params.require(:entry).permit(:amount, :currency, :user_id)
+		params.require(:entry).permit(:amount, :currency)
 	end
 
   def set_entry
@@ -31,6 +31,8 @@ class Api::V1::EntriesController < ApiController
   end
 
   def correct_user
-    head :not_acceptable unless current_user == @user
+    unless current_user == @entry.user
+      render status: :unauthorized, json: { error: "You're not authorized to access this data." }
+    end
   end
 end

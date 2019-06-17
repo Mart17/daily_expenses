@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :entry do
     amount { "9.99" }
-    currency { "MyString" }
+    currency { "Cookie Currency" }
     user { nil }
   end
 end
