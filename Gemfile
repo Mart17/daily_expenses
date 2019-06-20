@@ -16,7 +16,8 @@ gem 'jquery-rails', '>= 4.3.1'
 gem 'devise'
 gem 'high_voltage'
 gem 'pg'
-gem 'react-rails'
+gem 'react-rails',  '2.5.0'
+gem 'webpacker',    '4.0.7'
 gem 'slim-rails'
 
 group :development do
