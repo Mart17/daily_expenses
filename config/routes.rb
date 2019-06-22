@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
      resources :entries, except: [:index, :new, :show, :edit]
-     resources :users, only: :show
+     resources :current_user_entries, only: :index
     end
   end
 end
