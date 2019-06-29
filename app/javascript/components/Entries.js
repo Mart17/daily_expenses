@@ -6,7 +6,7 @@ import Index from "./Index"
 class Entries extends React.Component {
   constructor() {
     super();
-    this.state = { entries: [] }
+    this.state = { grouped_entries: [] }
   }
 
   componentDidMount() {
@@ -15,14 +15,14 @@ class Entries extends React.Component {
         return response.json()
       })
 	  	.then((data) => {
-        this.setState({ entries: data })
+        this.setState({ grouped_entries: data })
       })
   }
 
   render () {
     return (
       <React.Fragment>
-        <Index entries={this.state.entries} />
+        <Index groupedEntries={this.state.grouped_entries} />
       </React.Fragment>
     );
   }

@@ -9,10 +9,23 @@ class Index extends React.Component {
   }
 
   render () {
-    const entry_segments = this.props.entries.map((entry) => {
+    const entry_segments = this.props.groupedEntries.map((group) => {
+      let entries = group.entries.map((entry) => {
+        return (
+          <div key={entry.id}>
+            {entry.name}: {entry.amount} {entry.currency}
+          </div>
+        )
+      })
+
       return (
-        <div key={entry.id}>
-          {entry.name}: {entry.amount} {entry.currency} ({this.formatDate(entry.created_at)})
+        <div key={group.date}>
+          <b>
+            {this.formatDate(group.date)}
+          </b>
+          <br />
+          {entries}
+          <br />
         </div>
       )
     })
