@@ -2,12 +2,6 @@ import React from "react"
 import PropTypes from "prop-types"
 
 class Index extends React.Component {
-  formatDate = (date) => {
-    return (
-      new Date(`${date}`).toLocaleDateString("en-US")
-    )
-  }
-
   render () {
     const entry_segments = this.props.groupedEntries.map((group) => {
       let entries = group.entries.map((entry) => {
@@ -21,7 +15,7 @@ class Index extends React.Component {
       return (
         <div key={group.date}>
           <b>
-            {this.formatDate(group.date)}
+            {new Date(group.date).toLocaleDateString("en-US")}
           </b>
           <br />
           {entries}
