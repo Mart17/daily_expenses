@@ -12,6 +12,28 @@
     "react_ujs": "^2.5.0"
   },
   "devDependencies": {
+    "babel-jest": "^24.8.0",
+    "babel-preset-es2015": "^6.24.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "jest": "^24.8.0",
+    "regenerator-runtime": "^0.13.2",
     "webpack-dev-server": "^3.7.2"
+  },
+  "scripts": {
+    "test": "jest",
+    "test-watch": "jest --watch"
+  },
+  "jest": {
+    "roots": [
+      "spec/javascript"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "app/javascript"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/spec/javascript/config/setup_tests.js"
+    ]
   }
 }
