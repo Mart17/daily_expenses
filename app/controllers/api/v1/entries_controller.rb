@@ -23,7 +23,7 @@ class Api::V1::EntriesController < ApiController
 	private
 
 	def entry_params
-		params.require(:entry).permit(:amount, :currency)
+		params.require(:entry).permit(:name, :amount, :currency)
 	end
 
   def set_entry

@@ -26,7 +26,7 @@ class Index extends React.Component {
 
     return (
       <div>
-        <h4>Your Entries:</h4>
+        <h4>Your Entries</h4>
         {entry_segments}
       </div>
     )
