@@ -30,12 +30,20 @@ class Entries extends React.Component {
   }
 
   createEntry = new_entry => {
-    this.setState({
-      // FIXME but this can create new group so it can't be with 0
-      // first need to ask if the date is the same as the date of the last group?
-      // if yes then append, if no then need new date group
-			grouped_entries: this.state.grouped_entries[0].concat(new_entry)
-		})
+    // if the new entry has new date, then display new grouped_entry. Otherwise append to the last one
+    if (new Date(this.state.grouped_entries[0].date).toLocaleDateString("en-US") !== new Date(
+      new_entry.created_at).toLocaleDateString("en-US")) {
+
+      let new_group = { date: new Date(new_entry.created_at).toLocaleDateString("en-US"),
+                        entries: [new_entry] }
+
+      this.setState({ grouped_entries: [new_group].concat(this.state.grouped_entries) })
+    } else {
+      let grouped_entries_copy = JSON.parse(JSON.stringify(this.state.grouped_entries))
+      grouped_entries_copy[0].entries = [new_entry].concat(grouped_entries_copy[0].entries)
+
+      this.setState({ grouped_entries: grouped_entries_copy })
+    }
   }
 
   componentDidMount() {
