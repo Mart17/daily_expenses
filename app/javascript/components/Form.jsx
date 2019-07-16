@@ -10,7 +10,7 @@ class Form extends React.Component {
   }
 
   handleChange = event => {
-    let new_state = Object.assign({}, this.state)
+    let new_state = JSON.parse(JSON.stringify(this.state))
     new_state.entry[event.target.name] = event.target.value
 
     this.setState(new_state)
