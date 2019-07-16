@@ -1,8 +1,9 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import Form from "./Form"
-import Index from "./Index"
+import Form from './Form'
+import Index from './Index'
+import { localDate } from '../utils/Localization.jsx'
 
 class Entries extends React.Component {
   constructor() {
@@ -31,10 +32,10 @@ class Entries extends React.Component {
 
   createEntry = new_entry => {
     // if the new entry has new date, then display new grouped_entry. Otherwise append to the last one
-    if (new Date(this.state.grouped_entries[0].date).toLocaleDateString("en-US") !== new Date(
-      new_entry.created_at).toLocaleDateString("en-US")) {
+    if (localDate(this.state.grouped_entries[0].date, 'en-US') !== localDate(
+      new_entry.created_at, 'en-US')) {
 
-      let new_group = { date: new Date(new_entry.created_at).toLocaleDateString("en-US"),
+      let new_group = { date: localDate(new_entry.created_at, 'en-US'),
                         entries: [new_entry] }
 
       this.setState({ grouped_entries: [new_group].concat(this.state.grouped_entries) })

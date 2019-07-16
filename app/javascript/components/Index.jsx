@@ -1,5 +1,7 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from 'react'
+import PropTypes from 'prop-types'
+
+import { localDate } from '../utils/Localization.jsx'
 
 class Index extends React.Component {
   render () {
@@ -15,7 +17,7 @@ class Index extends React.Component {
       return (
         <div key={group.date}>
           <b>
-            {new Date(group.date).toLocaleDateString("en-US")}
+            {localDate(group.date, 'en-US')}
           </b>
           <br />
           {entries}
