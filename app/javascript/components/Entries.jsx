@@ -31,7 +31,7 @@ class Entries extends React.Component {
   }
 
   createEntry = new_entry => {
-    // if the new entry has new date, then display new grouped_entry. Otherwise append to the last one
+    // if the new entry has new date, then display new grouped_entry. Otherwise append to the first one
     if (localDate(this.state.grouped_entries[0].date, 'en-US') !== localDate(
       new_entry.created_at, 'en-US')) {
 
