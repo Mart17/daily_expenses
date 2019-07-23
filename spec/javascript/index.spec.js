@@ -12,13 +12,17 @@ describe('Index component', () => {
                                  "name":"Netflix" }] }]
 
     const wrapper = shallow(<Index groupedEntries={data} />)
-    
+
     const title   = wrapper.find('h4').text()
     const date    = wrapper.find('b').text()
-    const content = wrapper.find('div').at(2).text()
+    const input1  = wrapper.find('input').at(0).props().defaultValue
+    const input2  = wrapper.find('input').at(1).props().defaultValue
+    const input3  = wrapper.find('input').at(2).props().defaultValue
 
     expect(title).toEqual('Your Entries')
     expect(date).toEqual('6/27/2019')
-    expect(content).toEqual('Netflix: 5.55 USD')
+    expect(input1).toEqual('Netflix')
+    expect(input2).toEqual('5.55')
+    expect(input3).toEqual('USD')
   })
 })
