@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Form from './Form'
 import Index from './Index'
 import { localDate } from '../utils/Localization.jsx'
+import { debounce } from 'throttle-debounce'
 
 class Entries extends React.Component {
   constructor() {
@@ -47,6 +48,19 @@ class Entries extends React.Component {
     }
   }
 
+  handleUpdate = (id, attribute, value) => {
+    // TODO can pass only 1 attr?
+    const body = JSON.stringify({ entry: { [attribute]: value } })
+
+    fetch(`/api/v1/entries/${id}.json`, {
+      method: 'PUT',
+      headers: {
+				'Content-Type': 'application/json'
+			},
+      body: body
+    })
+  }
+
   componentDidMount() {
 	  fetch('/api/v1/current_user_entries.json')
 	  	.then((response) => {
@@ -58,11 +72,15 @@ class Entries extends React.Component {
   }
 
   render () {
+    this.handleUpdate = debounce(1000, this.handleUpdate)
+
     return (
       <React.Fragment>
         <Form handleCreate={this.handleCreate} />
         <br />
-        <Index groupedEntries={this.state.grouped_entries} />
+        <Index
+          groupedEntries={this.state.grouped_entries}
+          handleUpdate={this.handleUpdate} />
       </React.Fragment>
     )
   }

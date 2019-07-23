@@ -24,10 +24,14 @@ img {
   @extend .col-md-6;
   text-align: center;
 }
+.input-spaced {
+  margin: 5px 1px 5px 1px;
+}
 .submit {
   @extend .btn;
   @extend .btn-primary;
   @extend .btn-lg;
+  margin: 3px;
 }
 
 // apply styles to HTML elements
