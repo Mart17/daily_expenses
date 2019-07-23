@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { localDate } from '../utils/Localization.jsx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 class Index extends React.Component {
   handleChange = (e, id) => {
@@ -9,7 +11,7 @@ class Index extends React.Component {
   }
 
   render () {
-    const entry_segments = this.props.groupedEntries.map((group) => {
+    const entry_segments = this.props.groupedEntries.map((group, group_index) => {
       let entries = group.entries.map((entry) => {
         return (
           <div key={entry.id}>
@@ -37,6 +39,10 @@ class Index extends React.Component {
                 name="currency"
                 defaultValue={entry.currency}
                 onChange={(e) => this.handleChange(e, entry.id)} />
+              <FontAwesomeIcon
+                icon={faTrashAlt}
+                onClick={() => { if (window.confirm('Are you sure?'))
+                                    this.props.handleDelete(entry.id, group_index) }}/>
             </form>
           </div>
         )
