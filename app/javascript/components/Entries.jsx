@@ -49,7 +49,6 @@ class Entries extends React.Component {
   }
 
   handleUpdate = (id, attribute, value) => {
-    // TODO can pass only 1 attr?
     const body = JSON.stringify({ entry: { [attribute]: value } })
 
     fetch(`/api/v1/entries/${id}.json`, {

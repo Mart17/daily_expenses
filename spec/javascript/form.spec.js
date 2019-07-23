@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import Form from 'components/Form'
 
 describe('Form component', () => {
@@ -12,23 +12,28 @@ describe('Form component', () => {
     expect(wrapper.find('input').length).toEqual(4)
   })
 
-  /* FIXME
-  it('changes state', () => {
-    const wrapper = shallow(<Form />)
-    const instance = wrapper.instance()
+  it('updates state', () => {
+    const mockFunc = jest.fn()
+    const wrapper = mount(<Form handleCreate={mockFunc} />)
 
-    wrapper.find('input').at(1).simulate('change', {
-      target: { value: '5.55' }
-    })
-    wrapper.find('input').at(2).simulate('change', {
-      target: { value: 'USD' }
-    })
+    const input1 = wrapper.find('input').at(0)
+    const input2 = wrapper.find('input').at(1)
+    const input3 = wrapper.find('input').at(2)
 
-    expect(instance.state.entry).toEqual({ 'name': 'Netflix', 'amount': '5.55', 'currency': 'USD' })
-  }) */
+    input1.instance().value = 'Netflix'
+    input1.simulate('change')
+    input2.instance().value = '5.55'
+    input2.simulate('change')
+    input3.instance().value = 'USD'
+    input3.simulate('change')
 
-  /* TODO
-  it('Adds new entry after submit', () => {
+    expect(wrapper.state().entry).toEqual({ 'name': 'Netflix', 'amount': '5.55', 'currency': 'USD' })
 
-  }) */
+    wrapper.find('input').at(3).simulate('click')
+
+    expect(wrapper.state().entry).toEqual({ 'name': '', 'amount': '', 'currency': '' })
+
+    expect(mockFunc.mock.calls.length).toBe(1)
+    expect(mockFunc).toBeCalledWith({ 'name': 'Netflix', 'amount': '5.55', 'currency': 'USD' })
+  })
 })
