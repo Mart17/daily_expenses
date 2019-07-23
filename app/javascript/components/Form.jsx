@@ -25,26 +25,35 @@ class Form extends React.Component {
     return (
       <div>
         <h4>New Entry</h4>
-        <form>
-          <input
-            placeholder="Name"
-            type="text"
-            name="name"
-            value={this.state.entry.name}
-            onChange={this.handleChange} />
-          <input
-            placeholder="Amount"
-            type="text"
-            name="amount"
-            value={this.state.entry.amount}
-            onChange={this.handleChange} />
-          <input
-            placeholder="Currency"
-            type="text"
-            name="currency"
-            value={this.state.entry.currency}
-            onChange={this.handleChange} />
-          <input type="button" value="Submit" onClick={this.submitForm} />
+        <form className="form-inline">
+            <input
+              className="form-control form-control-lg input-spaced"
+              placeholder="Name"
+              type="text"
+              name="name"
+              value={this.state.entry.name}
+              onChange={this.handleChange} />
+            <input
+              className="form-control form-control-lg input-spaced"
+              placeholder="Amount"
+              type="text"
+              size="8"
+              name="amount"
+              value={this.state.entry.amount}
+              onChange={this.handleChange} />
+            <input
+              className="form-control form-control-lg input-spaced"
+              placeholder="Currency"
+              type="text"
+              size="3"
+              name="currency"
+              value={this.state.entry.currency}
+              onChange={this.handleChange} />
+            <input
+              type="button"
+              className="submit"
+              value="Submit"
+              onClick={this.submitForm} />
         </form>
       </div>
     )
