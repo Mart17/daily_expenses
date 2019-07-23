@@ -60,6 +60,37 @@ class Entries extends React.Component {
     })
   }
 
+  handleDelete = (id, group_index) => {
+    fetch(`/api/v1/entries/${id}.json`, {
+      method: 'DELETE',
+      headers: {
+				'Content-Type': 'application/json'
+			}
+    }).then((response) => {
+      this.deleteEntry(id, group_index)
+    })
+    this.deleteEntry(id, group_index)
+  }
+
+  deleteEntry(id, group_index) {
+    let updated_grouped_entries = JSON.parse(JSON.stringify(this.state.grouped_entries))
+    let updated_group = updated_grouped_entries[group_index]
+
+    if (updated_group.entries.length === 1) {
+      // remove whole group with its only entry
+      updated_grouped_entries.splice(group_index, 1)
+    } else {
+      // remove only specific entry but keep its group
+      updated_group.entries = updated_group.entries.filter((entry) => {
+        return entry.id !== id
+      })
+
+      updated_grouped_entries[group_index] = updated_group
+    }
+
+    this.setState({ grouped_entries: updated_grouped_entries })
+  }
+
   componentDidMount() {
 	  fetch('/api/v1/current_user_entries.json')
 	  	.then((response) => {
@@ -79,7 +110,8 @@ class Entries extends React.Component {
         <br />
         <Index
           groupedEntries={this.state.grouped_entries}
-          handleUpdate={this.handleUpdate} />
+          handleUpdate={this.handleUpdate}
+          handleDelete={this.handleDelete} />
       </React.Fragment>
     )
   }
