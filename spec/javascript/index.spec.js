@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import Index from 'components/Index'
 
 const data = [{ "date":"2019-06-27",
@@ -26,17 +26,25 @@ describe('Index component', () => {
     expect(input3).toEqual('USD')
   })
 
-  it.skip('removes entry', () => {
-    const wrapper = shallow(<Index groupedEntries={data} />)
+  it('removes entry', () => {
+    const mockFuncDelete = jest.fn()
+    
+    // always click 'OK'
+    window.confirm = jest.fn(() => true)
+
+    const wrapper  = mount(<Index groupedEntries={data} handleDelete={mockFuncDelete}/>)
 
     const icon = wrapper.find('svg')
-
-    expect(icon.lenght).toBe(1)
+    const date = wrapper.find('b').text()
 
     expect(wrapper.find('input').length).toBe(3)
+    expect(icon.length).toBe(1)
 
-    // click on icon to remove entry
+    wrapper.find('svg').at(0).simulate('click')
 
-    // expect(wrapper.find('input').length).toBe(0)
+    expect(window.confirm.mock.calls.length).toBe(1)
+
+    // entry's id is 7, index of group is 0
+    expect(mockFuncDelete).toBeCalledWith(7, 0)
   })
 })
