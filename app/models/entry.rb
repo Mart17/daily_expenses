@@ -1,5 +1,5 @@
 class Entry < ApplicationRecord
   belongs_to :user
 
-  validates_presence_of :user_id, :amount, :currency 
+  validates_presence_of :user_id, :amount, :currency, :name
 end

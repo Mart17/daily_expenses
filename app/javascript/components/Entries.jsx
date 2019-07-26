@@ -1,12 +1,93 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import Index from "./Index"
+import Form from './Form'
+import Index from './Index'
+import { localDate } from '../utils/Localization.jsx'
+import { debounce } from 'throttle-debounce'
 
 class Entries extends React.Component {
   constructor() {
-    super();
-    this.state = { grouped_entries: [] }
+    super()
+    this.state = { groupedEntries: [] }
+  }
+
+  handleCreate = newEntry => {
+    const body = JSON.stringify({ entry: { name: newEntry.name,
+                                           amount: newEntry.amount,
+                                           currency: newEntry.currency } })
+
+    fetch('api/v1/entries.json', {
+      method: 'POST',
+      headers: {
+				'Content-Type': 'application/json'
+			},
+      body: body
+    }).then((response) => {
+      return response.json()
+    })
+    .then((newEntryData) => {
+      this.createEntry(newEntryData)
+    })
+  }
+
+  createEntry = newEntry => {
+    // if the new entry has new date, then display new group. Otherwise append to the first group
+    if (localDate(this.state.groupedEntries[0].date, 'en-US') !== localDate(
+      newEntry.created_at, 'en-US')) {
+
+      let newGroup = { date: localDate(newEntry.created_at, 'en-US'),
+                        entries: [newEntry] }
+
+      this.setState({ groupedEntries: [newGroup].concat(this.state.groupedEntries) })
+    } else {
+      let groupedEntriesCopy = JSON.parse(JSON.stringify(this.state.groupedEntries))
+      groupedEntriesCopy[0].entries = [newEntry].concat(groupedEntriesCopy[0].entries)
+
+      this.setState({ groupedEntries: groupedEntriesCopy })
+    }
+  }
+
+  handleUpdate = (id, attribute, value) => {
+    const body = JSON.stringify({ entry: { [attribute]: value } })
+
+    fetch(`/api/v1/entries/${id}.json`, {
+      method: 'PUT',
+      headers: {
+				'Content-Type': 'application/json'
+			},
+      body: body
+    })
+  }
+
+  handleDelete = (id, groupIndex) => {
+    fetch(`/api/v1/entries/${id}.json`, {
+      method: 'DELETE',
+      headers: {
+				'Content-Type': 'application/json'
+			}
+    }).then((response) => {
+      this.deleteEntry(id, groupIndex)
+    })
+  }
+
+  deleteEntry(id, groupIndex) {
+    let updatedGroupedEntries = JSON.parse(JSON.stringify(this.state.groupedEntries))
+    let updatedGroup          = updatedGroupedEntries[groupIndex]
+
+    if (updatedGroup.entries.length === 1) {
+      // remove whole group with its only entry
+      updatedGroupedEntries.splice(groupIndex, 1)
+    } else {
+      // remove only specific entry but keep its group
+      updatedGroup.entries = updatedGroup.entries.filter((entry) => {
+        return entry.id !== id
+      })
+
+      updatedGroupedEntries[groupIndex] = updatedGroup
+    }
+
+    this.setState({ groupedEntries: updatedGroupedEntries })
   }
 
   componentDidMount() {
@@ -15,16 +96,23 @@ class Entries extends React.Component {
         return response.json()
       })
 	  	.then((data) => {
-        this.setState({ grouped_entries: data })
+        this.setState({ groupedEntries: data })
       })
   }
 
   render () {
+    this.handleUpdate = debounce(1000, this.handleUpdate)
+
     return (
       <React.Fragment>
-        <Index groupedEntries={this.state.grouped_entries} />
+        <Form handleCreate={this.handleCreate} />
+        <br />
+        <Index
+          groupedEntries={this.state.groupedEntries}
+          handleUpdate={this.handleUpdate}
+          handleDelete={this.handleDelete} />
       </React.Fragment>
-    );
+    )
   }
 }
 
