@@ -9,13 +9,13 @@ import { debounce } from 'throttle-debounce'
 class Entries extends React.Component {
   constructor() {
     super()
-    this.state = { grouped_entries: [] }
+    this.state = { groupedEntries: [] }
   }
 
-  handleCreate = new_entry => {
-    const body = JSON.stringify({ entry: { name: new_entry.name,
-                                           amount: new_entry.amount,
-                                           currency: new_entry.currency } })
+  handleCreate = newEntry => {
+    const body = JSON.stringify({ entry: { name: newEntry.name,
+                                           amount: newEntry.amount,
+                                           currency: newEntry.currency } })
 
     fetch('api/v1/entries.json', {
       method: 'POST',
@@ -26,25 +26,25 @@ class Entries extends React.Component {
     }).then((response) => {
       return response.json()
     })
-    .then((new_entry_data) => {
-      this.createEntry(new_entry_data)
+    .then((newEntryData) => {
+      this.createEntry(newEntryData)
     })
   }
 
-  createEntry = new_entry => {
-    // if the new entry has new date, then display new grouped_entry. Otherwise append to the first one
-    if (localDate(this.state.grouped_entries[0].date, 'en-US') !== localDate(
-      new_entry.created_at, 'en-US')) {
+  createEntry = newEntry => {
+    // if the new entry has new date, then display new group. Otherwise append to the first group
+    if (localDate(this.state.groupedEntries[0].date, 'en-US') !== localDate(
+      newEntry.created_at, 'en-US')) {
 
-      let new_group = { date: localDate(new_entry.created_at, 'en-US'),
-                        entries: [new_entry] }
+      let newGroup = { date: localDate(newEntry.created_at, 'en-US'),
+                        entries: [newEntry] }
 
-      this.setState({ grouped_entries: [new_group].concat(this.state.grouped_entries) })
+      this.setState({ groupedEntries: [newGroup].concat(this.state.groupedEntries) })
     } else {
-      let grouped_entries_copy = JSON.parse(JSON.stringify(this.state.grouped_entries))
-      grouped_entries_copy[0].entries = [new_entry].concat(grouped_entries_copy[0].entries)
+      let groupedEntriesCopy = JSON.parse(JSON.stringify(this.state.groupedEntries))
+      groupedEntriesCopy[0].entries = [newEntry].concat(groupedEntriesCopy[0].entries)
 
-      this.setState({ grouped_entries: grouped_entries_copy })
+      this.setState({ groupedEntries: groupedEntriesCopy })
     }
   }
 
@@ -60,35 +60,34 @@ class Entries extends React.Component {
     })
   }
 
-  handleDelete = (id, group_index) => {
+  handleDelete = (id, groupIndex) => {
     fetch(`/api/v1/entries/${id}.json`, {
       method: 'DELETE',
       headers: {
 				'Content-Type': 'application/json'
 			}
     }).then((response) => {
-      this.deleteEntry(id, group_index)
+      this.deleteEntry(id, groupIndex)
     })
-    this.deleteEntry(id, group_index)
   }
 
-  deleteEntry(id, group_index) {
-    let updated_grouped_entries = JSON.parse(JSON.stringify(this.state.grouped_entries))
-    let updated_group = updated_grouped_entries[group_index]
+  deleteEntry(id, groupIndex) {
+    let updatedGroupedEntries = JSON.parse(JSON.stringify(this.state.groupedEntries))
+    let updatedGroup          = updatedGroupedEntries[groupIndex]
 
-    if (updated_group.entries.length === 1) {
+    if (updatedGroup.entries.length === 1) {
       // remove whole group with its only entry
-      updated_grouped_entries.splice(group_index, 1)
+      updatedGroupedEntries.splice(groupIndex, 1)
     } else {
       // remove only specific entry but keep its group
-      updated_group.entries = updated_group.entries.filter((entry) => {
+      updatedGroup.entries = updatedGroup.entries.filter((entry) => {
         return entry.id !== id
       })
 
-      updated_grouped_entries[group_index] = updated_group
+      updatedGroupedEntries[groupIndex] = updatedGroup
     }
 
-    this.setState({ grouped_entries: updated_grouped_entries })
+    this.setState({ groupedEntries: updatedGroupedEntries })
   }
 
   componentDidMount() {
@@ -97,7 +96,7 @@ class Entries extends React.Component {
         return response.json()
       })
 	  	.then((data) => {
-        this.setState({ grouped_entries: data })
+        this.setState({ groupedEntries: data })
       })
   }
 
@@ -109,7 +108,7 @@ class Entries extends React.Component {
         <Form handleCreate={this.handleCreate} />
         <br />
         <Index
-          groupedEntries={this.state.grouped_entries}
+          groupedEntries={this.state.groupedEntries}
           handleUpdate={this.handleUpdate}
           handleDelete={this.handleDelete} />
       </React.Fragment>

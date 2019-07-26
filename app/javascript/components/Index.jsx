@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 const Index = (props) => {
-  const entry_segments = props.groupedEntries.map((group, group_index) => {
+  const entrySegments = props.groupedEntries.map((group, groupIndex) => {
     let entries = group.entries.map((entry) => {
       return (
         <div key={entry.id}>
@@ -37,7 +37,7 @@ const Index = (props) => {
             <FontAwesomeIcon
               icon={faTrashAlt}
               onClick={() => { if (window.confirm('Are you sure?'))
-                                props.handleDelete(entry.id, group_index) }}/>
+                                props.handleDelete(entry.id, groupIndex) }}/>
           </form>
         </div>
       )
@@ -58,7 +58,7 @@ const Index = (props) => {
   return (
     <div>
       <h4>Your Entries</h4>
-      {entry_segments}
+      {entrySegments}
     </div>
   )
 }
