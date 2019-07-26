@@ -5,20 +5,20 @@ class Form extends React.Component {
   constructor() {
     super()
 
-    this.initial_value = { entry: { name: '', amount: '', currency: '' } }
-    this.state = this.initial_value
+    this.initialValue = { entry: { name: '', amount: '', currency: '' } }
+    this.state = this.initialValue
   }
 
   handleChange = event => {
-    let new_state = JSON.parse(JSON.stringify(this.state))
-    new_state.entry[event.target.name] = event.target.value
+    let newState = JSON.parse(JSON.stringify(this.state))
+    newState.entry[event.target.name] = event.target.value
 
-    this.setState(new_state)
+    this.setState(newState)
   }
 
   submitForm = () => {
     this.props.handleCreate(this.state.entry)
-    this.setState(this.initial_value)
+    this.setState(this.initialValue)
   }
 
   render () {
