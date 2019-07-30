@@ -13,6 +13,15 @@ class Entries extends React.Component {
     this.authToken = this.props.authenticity_token
   }
 
+  setHeaders = () => {
+    return (
+      {
+        'Content-Type': 'application/json',
+        'Authentication-Token': this.authToken
+      }
+    )
+  }
+
   handleCreate = newEntry => {
     const body = JSON.stringify({ entry: { name: newEntry.name,
                                            amount: newEntry.amount,
@@ -20,9 +29,7 @@ class Entries extends React.Component {
 
     fetch('api/v1/entries.json', {
       method: 'POST',
-      headers: {
-				'Content-Type': 'application/json'
-			},
+      headers: this.setHeaders(),
       body: body
     }).then((response) => {
       return response.json()
@@ -54,9 +61,7 @@ class Entries extends React.Component {
 
     fetch(`/api/v1/entries/${id}.json`, {
       method: 'PUT',
-      headers: {
-				'Content-Type': 'application/json'
-			},
+      headers: this.setHeaders(),
       body: body
     })
   }
@@ -64,9 +69,7 @@ class Entries extends React.Component {
   handleDelete = (id, groupIndex) => {
     fetch(`/api/v1/entries/${id}.json`, {
       method: 'DELETE',
-      headers: {
-				'Content-Type': 'application/json'
-			}
+      headers: this.setHeaders()
     }).then((response) => {
       this.deleteEntry(id, groupIndex)
     })
@@ -93,10 +96,7 @@ class Entries extends React.Component {
 
   componentDidMount() {
 	  fetch('/api/v1/current_user_entries.json', {
-      headers: {
-        // TODO how to make this for every request?
-        'Authentication-Token': this.authToken
-      }
+      headers: this.setHeaders()
     })
   	.then((response) => {
       return response.json()
