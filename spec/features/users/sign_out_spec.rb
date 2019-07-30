@@ -12,6 +12,7 @@ feature 'Sign out', :devise do
     click_button 'Log in'
     expect(page).to have_content I18n.t 'devise.sessions.signed_in'
 
+    expect(page).to have_content 'Log out'
     click_link 'Log out'
     expect(page).to have_content I18n.t 'devise.sessions.signed_out'
   end
