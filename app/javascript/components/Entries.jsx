@@ -7,9 +7,10 @@ import { localDate } from '../utils/Localization.jsx'
 import { debounce } from 'throttle-debounce'
 
 class Entries extends React.Component {
-  constructor() {
-    super()
-    this.state = { groupedEntries: [] }
+  constructor(props) {
+    super(props)
+    this.state     = { groupedEntries: [] }
+    this.authToken = this.props.authenticity_token
   }
 
   handleCreate = newEntry => {
@@ -91,13 +92,18 @@ class Entries extends React.Component {
   }
 
   componentDidMount() {
-	  fetch('/api/v1/current_user_entries.json')
-	  	.then((response) => {
-        return response.json()
-      })
-	  	.then((data) => {
-        this.setState({ groupedEntries: data })
-      })
+	  fetch('/api/v1/current_user_entries.json', {
+      headers: {
+        // TODO how to make this for every request?
+        'Authentication-Token': this.authToken
+      }
+    })
+  	.then((response) => {
+      return response.json()
+    })
+  	.then((data) => {
+      this.setState({ groupedEntries: data })
+    })
   }
 
   render () {
