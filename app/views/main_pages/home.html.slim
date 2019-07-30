@@ -2,7 +2,7 @@
   h3 = "Welcome #{current_user.name}"
   h5 What have been your expenses today? 🤑
 
-  = react_component('Entries')
+  = react_component('Entries', { authenticity_token: @auth_token } )
 
 - else
   h3 Have your expenses under control!

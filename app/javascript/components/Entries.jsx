@@ -7,9 +7,19 @@ import { localDate } from '../utils/Localization.jsx'
 import { debounce } from 'throttle-debounce'
 
 class Entries extends React.Component {
-  constructor() {
-    super()
-    this.state = { groupedEntries: [] }
+  constructor(props) {
+    super(props)
+    this.state     = { groupedEntries: [] }
+    this.authToken = this.props.authenticity_token
+  }
+
+  setHeaders = () => {
+    return (
+      {
+        'Content-Type': 'application/json',
+        'Authentication-Token': this.authToken
+      }
+    )
   }
 
   handleCreate = newEntry => {
@@ -19,9 +29,7 @@ class Entries extends React.Component {
 
     fetch('api/v1/entries.json', {
       method: 'POST',
-      headers: {
-				'Content-Type': 'application/json'
-			},
+      headers: this.setHeaders(),
       body: body
     }).then((response) => {
       return response.json()
@@ -53,9 +61,7 @@ class Entries extends React.Component {
 
     fetch(`/api/v1/entries/${id}.json`, {
       method: 'PUT',
-      headers: {
-				'Content-Type': 'application/json'
-			},
+      headers: this.setHeaders(),
       body: body
     })
   }
@@ -63,9 +69,7 @@ class Entries extends React.Component {
   handleDelete = (id, groupIndex) => {
     fetch(`/api/v1/entries/${id}.json`, {
       method: 'DELETE',
-      headers: {
-				'Content-Type': 'application/json'
-			}
+      headers: this.setHeaders()
     }).then((response) => {
       this.deleteEntry(id, groupIndex)
     })
@@ -91,13 +95,15 @@ class Entries extends React.Component {
   }
 
   componentDidMount() {
-	  fetch('/api/v1/current_user_entries.json')
-	  	.then((response) => {
-        return response.json()
-      })
-	  	.then((data) => {
-        this.setState({ groupedEntries: data })
-      })
+	  fetch('/api/v1/current_user_entries.json', {
+      headers: this.setHeaders()
+    })
+  	.then((response) => {
+      return response.json()
+    })
+  	.then((data) => {
+      this.setState({ groupedEntries: data })
+    })
   }
 
   render () {
