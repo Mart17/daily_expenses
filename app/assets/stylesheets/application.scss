@@ -1,5 +1,8 @@
 @import "bootstrap";
 
+// Variables
+$ligh-grey: rgb(244, 244, 244);
+
 main {
   margin-top: 30px;
 }
@@ -42,6 +45,12 @@ main {
 }
 
 // Entry forms
+.entry-form fieldset {
+  @extend .card;
+  display: inline;
+  padding: 10px;
+  background-color: $ligh-grey;
+}
 .input-spaced {
   margin: 5px 1px 5px 1px;
 }
@@ -50,6 +59,23 @@ main {
   @extend .btn-primary;
   @extend .btn-lg;
   margin: 3px;
+}
+
+// Entries
+.entry-group {
+  @extend .card;
+  display: inline-block;
+  padding: 10px;
+  background-color: $ligh-grey;
+  margin-bottom: 15px;
+}
+
+.entry {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  input {
+    margin: 1px;
+  }
 }
 
 // Various
@@ -63,6 +89,7 @@ img {
   margin: 0 auto;
 }
 .fa-trash-alt {
-  margin: 3px;
+  margin-left: 2px;
+  margin-bottom: 4px;
   cursor: pointer;
 }
