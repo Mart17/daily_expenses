@@ -9,7 +9,7 @@ const Index = (props) => {
   const entrySegments = props.groupedEntries.map((group, groupIndex) => {
     let entries = group.entries.map((entry) => {
       return (
-        <div key={entry.id}>
+        <div key={entry.id} className="entry">
           <form className="form-inline">
             <input
               className="form-control input-spaced"
@@ -49,7 +49,9 @@ const Index = (props) => {
           {localDate(group.date, 'en-US')}
         </b>
         <br />
-        {entries}
+        <div className="entry-group">
+          {entries}
+        </div>
         <br />
       </div>
     )

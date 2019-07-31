@@ -12,7 +12,7 @@ describe 'the signin process', type: :feature do
       fill_in 'Email', with: 'user@example.com'
       fill_in 'Password', with: 'password'
     end
-    click_button 'Log in'
+    click_button 'Sign in'
     expect(page).to have_content 'Invalid Email or password'
   end
 
@@ -22,7 +22,7 @@ describe 'the signin process', type: :feature do
       fill_in 'Email', with: 'user@wrong_email.com'
       fill_in 'Password', with: user.password
     end
-    click_button 'Log in'
+    click_button 'Sign in'
     expect(page).to have_content 'Invalid Email or password'
   end
 
@@ -32,7 +32,7 @@ describe 'the signin process', type: :feature do
       fill_in 'Email', with: user.email
       fill_in 'Password', with: 'invalid_password'
     end
-    click_button 'Log in'
+    click_button 'Sign in'
     expect(page).to have_content 'Invalid Email or password'
   end
 
@@ -42,7 +42,7 @@ describe 'the signin process', type: :feature do
       fill_in 'Email', with: user.email
       fill_in 'Password', with: user.password
     end
-    click_button 'Log in'
+    click_button 'Sign in'
     expect(page).to have_content 'You have to confirm your email address before continuing'
   end
 
@@ -52,7 +52,7 @@ describe 'the signin process', type: :feature do
       fill_in 'Email', with: confirmed_user.email
       fill_in 'Password', with: confirmed_user.password
     end
-    click_button 'Log in'
+    click_button 'Sign in'
     expect(page).to have_content 'Signed in successfully'
   end
 end

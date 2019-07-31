@@ -1,13 +1,17 @@
-.container
-  nav.navbar.navbar-expand-sm
-    ul.navbar-nav.mr-auto
-      = render 'layouts/navigation_links'
-    .ml-auto
-    - if current_user
-      = current_user.email
-      |  (
-      = link_to 'Log out', destroy_user_session_path, method: :delete
-      | )
-    - else
-      = link_to 'Sign up', new_user_registration_path, class: 'nav-link'
-      = link_to 'Log in', new_user_session_path, class: 'nav-link'
+nav.navbar.navbar-expand-sm.bg-light
+  .container
+    button.navbar-toggler.btn.btn-outline-primary type="button" data-toggle="collapse" data-target="#collapseNav"
+      | Options⬇
+    .collapse.navbar-collapse id="collapseNav"
+      ul.navbar-nav
+        = render 'layouts/navigation_links'
+      .ml-auto
+      - if current_user
+        = current_user.email
+        |  (
+        = link_to 'Log out', destroy_user_session_path, method: :delete
+        | )
+      - else
+        ul.navbar-nav
+          li.nav-item = link_to 'Sign up', new_user_registration_path, class: 'nav-link'
+          li.nav-item = link_to 'Log in', new_user_session_path, class: 'nav-link'
