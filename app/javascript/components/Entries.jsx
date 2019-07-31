@@ -112,7 +112,7 @@ class Entries extends React.Component {
     return (
       <React.Fragment>
         <Form handleCreate={this.handleCreate} />
-        <br />
+        <br /><br />
         <Index
           groupedEntries={this.state.groupedEntries}
           handleUpdate={this.handleUpdate}
