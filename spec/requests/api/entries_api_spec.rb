@@ -5,7 +5,7 @@ describe 'entries API requests', type: :request do
   let (:incorrect_user)  { create(:user, name: 'Incorrect User', email: 'incorrect@user.com') }
   let (:entry)           { create(:entry, user_id: user.id) }
 
-  let (:params)          { { entry: { name: 'Ticket', amount: '1.52', currency: 'USD' } } }
+  let (:params)          { { entry: { name: 'Ticket', amount: '1.52', currency: '$' } } }
   let (:sing_in_msg)     { 'You need to sign in or sign up before continuing.' }
   let (:auth_msg)        { "You're not authorized to access this data." }
 

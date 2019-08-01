@@ -9,31 +9,32 @@ describe('Form component', () => {
     const wrapper = shallow(<Form />)
 
     expect(wrapper.find('h4').text()).toEqual('New Entry')
-    expect(wrapper.find('input').length).toEqual(4)
+    expect(wrapper.find('input').length).toEqual(3)
+    expect(wrapper.find('select').length).toEqual(1)
   })
 
   it('updates state', () => {
     const mockFunc = jest.fn()
-    const wrapper = mount(<Form handleCreate={mockFunc} />)
+    const wrapper = mount(<Form handleCreate={mockFunc} defaultCurrency='€' />)
 
-    const input1 = wrapper.find('input').at(0)
-    const input2 = wrapper.find('input').at(1)
-    const input3 = wrapper.find('input').at(2)
+    const input1  = wrapper.find('input').at(0)
+    const input2  = wrapper.find('input').at(1)
+    const select1 = wrapper.find('select').at(0)
 
     input1.instance().value = 'Netflix'
     input1.simulate('change')
     input2.instance().value = '5.55'
     input2.simulate('change')
-    input3.instance().value = 'USD'
-    input3.simulate('change')
+    select1.instance().value = '$'
+    select1.simulate('change')
 
-    expect(wrapper.state().entry).toEqual({ 'name': 'Netflix', 'amount': '5.55', 'currency': 'USD' })
+    expect(wrapper.state().entry).toEqual({ 'name': 'Netflix', 'amount': '5.55', 'currency': '$' })
 
-    wrapper.find('input').at(3).simulate('click')
+    wrapper.find('input').at(2).simulate('click')
 
-    expect(wrapper.state().entry).toEqual({ 'name': '', 'amount': '', 'currency': '' })
+    expect(wrapper.state().entry).toEqual({ 'name': '', 'amount': '', 'currency': '€' })
 
     expect(mockFunc.mock.calls.length).toBe(1)
-    expect(mockFunc).toBeCalledWith({ 'name': 'Netflix', 'amount': '5.55', 'currency': 'USD' })
+    expect(mockFunc).toBeCalledWith({ 'name': 'Netflix', 'amount': '5.55', 'currency': '$' })
   })
 })
