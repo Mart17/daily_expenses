@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class Form extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
-    this.initialValue = { entry: { name: '', amount: '', currency: '' } }
+    this.initialValue = { entry: { name: '', amount: '', currency: props.defaultCurrency } }
     this.state = this.initialValue
   }
 
@@ -42,14 +42,15 @@ class Form extends React.Component {
                 name="amount"
                 value={this.state.entry.amount}
                 onChange={this.handleChange} />
-              <input
+              <select
                 className="form-control form-control-lg input-spaced"
-                placeholder="Currency"
-                type="text"
-                size="3"
                 name="currency"
                 value={this.state.entry.currency}
-                onChange={this.handleChange} />
+                onChange={this.handleChange} >
+                <option value="€">€</option>
+                <option value="$">$</option>
+                <option value="£">£</option>
+              </select>
               <input
                 type="button"
                 className="submit"
