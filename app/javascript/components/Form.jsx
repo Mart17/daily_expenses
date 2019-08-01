@@ -31,14 +31,15 @@ class Form extends React.Component {
                 className="form-control form-control-lg input-spaced"
                 placeholder="Name"
                 type="text"
+                maxLength="50"
                 name="name"
                 value={this.state.entry.name}
                 onChange={this.handleChange} />
               <input
                 className="form-control form-control-lg input-spaced"
                 placeholder="Amount"
-                type="text"
-                size="8"
+                type="number"
+                step="any"
                 name="amount"
                 value={this.state.entry.amount}
                 onChange={this.handleChange} />

@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_01_144540) do
+ActiveRecord::Schema.define(version: 2019_08_01_180456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "entries", force: :cascade do |t|
-    t.string "amount"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
     t.integer "currency"
+    t.decimal "amount", precision: 8, scale: 2
     t.index ["user_id"], name: "index_entries_on_user_id"
   end
 

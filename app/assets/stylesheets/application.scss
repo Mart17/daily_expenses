@@ -53,6 +53,9 @@ main {
 .input-spaced {
   margin: 5px 1px 5px 1px;
 }
+.input-number {
+  width: 100px;
+}
 .submit {
   @extend .btn;
   @extend .btn-primary;
