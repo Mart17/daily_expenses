@@ -15,6 +15,7 @@ const Index = (props) => {
               className="form-control input-spaced"
               placeholder="Name"
               type="text"
+              maxLength="50"
               name="name"
               defaultValue={entry.name}
               onChange={(e) => props.handleUpdate(entry.id, e.target.name, e.target.value)} />
@@ -23,6 +24,8 @@ const Index = (props) => {
               placeholder="Amount"
               type="text"
               size="8"
+              type="number"
+              step="any"
               name="amount"
               defaultValue={entry.amount}
               onChange={(e) => props.handleUpdate(entry.id, e.target.name, e.target.value)} />
