@@ -6,10 +6,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 const Index = (props) => {
+  const handleAmountChange = (id, name, value) => {
+    document.getElementById(id).style.color = setAmountColor(value).color
+    props.handleUpdate(id, name, value)
+  }
+
+  const setAmountColor = (amount) => {
+    if (parseFloat(amount) === 0) {
+      return { color: 'black' }
+    } else {
+      return (amount > 0 ? { color: 'green' } : { color: 'red' })
+    }
+  }
+
   const entrySegments = props.groupedEntries.map((group, groupIndex) => {
     let entries = group.entries.map((entry) => {
       return (
-        <div key={entry.id} className="entry">
+        <div key={entry.id} id={entry.id} className="entry" style={setAmountColor(entry.amount)}>
           <form className="form-inline">
             <input
               className="form-control input-spaced"
@@ -28,8 +41,9 @@ const Index = (props) => {
               step="any"
               name="amount"
               defaultValue={entry.amount}
-              onChange={(e) => props.handleUpdate(entry.id, e.target.name, e.target.value)} />
+              onChange={(e) => handleAmountChange(entry.id, e.target.name, e.target.value)} />
             <select
+              id="blabla"
               className="form-control input-spaced"
               name="currency"
               defaultValue={entry.currency}
