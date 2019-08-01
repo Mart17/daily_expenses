@@ -45,6 +45,7 @@ class Form extends React.Component {
               <select
                 className="form-control form-control-lg input-spaced"
                 name="currency"
+                title="Change default currency in the settings"
                 value={this.state.entry.currency}
                 onChange={this.handleChange} >
                 <option value="€">€</option>
