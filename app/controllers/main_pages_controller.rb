@@ -3,7 +3,8 @@ class MainPagesController < ApplicationController
     if current_user
       current_user.regenerate_authenticity_token
 
-      @auth_token = current_user.authenticity_token
+      @auth_token       = current_user.authenticity_token
+      @default_currency = '£'
     end
   end
 end

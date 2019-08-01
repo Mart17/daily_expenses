@@ -9,8 +9,9 @@ import { debounce } from 'throttle-debounce'
 class Entries extends React.Component {
   constructor(props) {
     super(props)
-    this.state     = { groupedEntries: [] }
-    this.authToken = this.props.authenticity_token
+    this.state           = { groupedEntries: [] }
+    this.authToken       = props.authenticity_token
+    this.defaultCurrency = props.default_currency
   }
 
   setHeaders = () => {
@@ -111,7 +112,9 @@ class Entries extends React.Component {
 
     return (
       <React.Fragment>
-        <Form handleCreate={this.handleCreate} />
+        <Form
+          handleCreate={this.handleCreate}
+          defaultCurrency={this.defaultCurrency} />
         <br /><br />
         <Index
           groupedEntries={this.state.groupedEntries}

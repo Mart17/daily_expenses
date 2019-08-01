@@ -26,14 +26,15 @@ const Index = (props) => {
               name="amount"
               defaultValue={entry.amount}
               onChange={(e) => props.handleUpdate(entry.id, e.target.name, e.target.value)} />
-            <input
+            <select
               className="form-control input-spaced"
-              placeholder="Currency"
-              type="text"
-              size="3"
               name="currency"
               defaultValue={entry.currency}
-              onChange={(e) => props.handleUpdate(entry.id, e.target.name, e.target.value)} />
+              onChange={(e) => props.handleUpdate(entry.id, e.target.name, e.target.value)} >
+              <option value="€">€</option>
+              <option value="$">$</option>
+              <option value="£">£</option>
+            </select>
             <FontAwesomeIcon
               icon={faTrashAlt}
               onClick={() => { if (window.confirm('Are you sure?'))
