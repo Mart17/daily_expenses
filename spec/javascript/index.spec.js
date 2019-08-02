@@ -32,7 +32,7 @@ describe('Index component', () => {
     // always click 'OK'
     window.confirm = jest.fn(() => true)
 
-    const wrapper  = mount(<Index groupedEntries={data} handleDelete={mockFuncDelete}/>)
+    const wrapper  = mount(<Index groupedEntries={data} handleDelete={mockFuncDelete} />)
 
     const icon = wrapper.find('svg')
     const date = wrapper.find('b').text()
@@ -47,5 +47,25 @@ describe('Index component', () => {
 
     // entry's id is 7, index of group is 0
     expect(mockFuncDelete).toBeCalledWith(7, 0)
+  })
+
+  // Enazyme can't work with document - Cannot read property 'style' of null
+  it.skip('changes color dependening on value of amount', () => {
+    const wrapper = mount(<Index groupedEntries={data} />)
+
+    const entry       = wrapper.find('.entry').at(0)
+    const amountInput = wrapper.find('input').at(1)
+    //const children =
+    //const input =
+    //const select =
+
+    expect(entry).toBeDefined()
+    expect(entry.prop('style')).toHaveProperty('color', 'green')
+    //expect(children.prop('style')).toHaveProperty('color', 'green')
+
+    amountInput.instance().value = '-5.55'
+    amountInput.simulate('change')
+
+    expect(entry.prop('style')).toHaveProperty('color', 'red')
   })
 })
