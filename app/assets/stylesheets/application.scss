@@ -3,8 +3,20 @@
 // Variables
 $ligh-grey: rgb(244, 244, 244);
 
+// General
 main {
   margin-top: 30px;
+}
+
+// Colors
+.positive {
+  color: green;
+}
+.negative {
+  color: red;
+}
+.neutral {
+  color: black;
 }
 
 // Auth forms
@@ -50,7 +62,6 @@ main {
   display: inline;
   padding: 10px;
 }
-
 .input-spaced {
   margin: 5px 1px 5px 1px;
 }
