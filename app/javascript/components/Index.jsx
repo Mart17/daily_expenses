@@ -32,12 +32,13 @@ class Index extends React.Component {
   }
 
   render () {
-    const entrySegments = this.props.groupedEntries.map((group) => {
+    const entrySegments = this.props.groupedEntries.map((group, groupIndex) => {
       let entries = group.entries.map((entry) => {
         return (
           <div key={entry.id}>
             <Entry
               entry={entry}
+              groupIndex={groupIndex}
               handleUpdate={this.props.handleUpdate}
               handleDelete={this.props.handleDelete} />
           </div>
@@ -49,7 +50,7 @@ class Index extends React.Component {
           <b>
             {localDate(group.date, 'en-US')}
           </b>
-          <span> ({this.groupCalculations(group)})</span>
+          <span className="calculations"> ({this.groupCalculations(group)})</span>
           <br />
           <div className="entry-group">
             {entries}
