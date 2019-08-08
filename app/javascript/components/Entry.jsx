@@ -51,7 +51,8 @@ class Entry extends React.Component {
             </select>
             <FontAwesomeIcon
               icon={faTrashAlt}
-              onClick={() => { if (window.confirm('Are you sure?')) this.props.handleDelete(entry.id) }} />
+              onClick={() => { if (window.confirm('Are you sure?'))
+                this.props.handleDelete(entry.id, this.props.groupIndex) }} />
           </form>
         </div>
       </div>
