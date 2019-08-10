@@ -10,10 +10,14 @@ class Form extends React.Component {
   }
 
   handleChange = event => {
-    let newState = JSON.parse(JSON.stringify(this.state))
-    newState.entry[event.target.name] = event.target.value
+    event.persist()
 
-    this.setState(newState)
+    this.setState((prevState) => ({
+      entry: {
+        ...prevState.entry,
+        [event.target.name]: event.target.value
+      }
+    }))
   }
 
   submitForm = () => {

@@ -8,11 +8,11 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 class Entry extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { colorClass: setAmountColorClass(props.entry.amount) }
+    this.state = { amount: props.entry.amount }
   }
 
   handleAmountChange = (id, name, value) => {
-    this.setState({ colorClass: setAmountColorClass(value) })
+    this.setState({ amount: value })
     this.props.handleUpdate(id, name, value)
   }
 
@@ -21,7 +21,7 @@ class Entry extends React.Component {
 
     return (
       <div className="entry">
-        <div className={this.state.colorClass}>
+        <div className={setAmountColorClass(this.state.amount)}>
           <form className="form-inline">
             <input
               className="form-control input-spaced"
