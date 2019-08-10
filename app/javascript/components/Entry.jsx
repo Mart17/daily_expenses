@@ -11,16 +11,13 @@ class Entry extends React.Component {
     this.state = { amount: props.entry.amount }
   }
 
-  // TODO refactor to use only 1 method with if else based on attribute name?
-  handleAmountChange = (id, name, value) => {
-    this.setState({ amount: value })
-    this.props.handleGroupAmountsChange(id, value)
-    this.props.handleUpdate(id, name, value)
-  }
+  handleChange = (id, attribute, value) => {
+    if (attribute === 'amount') {
+      this.setState({ amount: value })
+    }
 
-  handleCurrencyChange = (id, name, value) => {
-    this.props.handleGroupCurrenciesChange(id, value)
-    this.props.handleUpdate(id, name, value)
+    this.props.handleGroupChange(id, attribute, value)
+    this.props.handleUpdate(id, attribute, value)
   }
 
   render() {
@@ -46,12 +43,12 @@ class Entry extends React.Component {
               step="any"
               name="amount"
               defaultValue={entry.amount}
-              onChange={(e) => this.handleAmountChange(entry.id, e.target.name, e.target.value)} />
+              onChange={(e) => this.handleChange(entry.id, e.target.name, e.target.value)} />
             <select
               className="form-control input-spaced"
               name="currency"
               defaultValue={entry.currency}
-              onChange={(e) => this.handleCurrencyChange(entry.id, e.target.name, e.target.value)}>
+              onChange={(e) => this.handleChange(entry.id, e.target.name, e.target.value)}>
               <option value="€">€</option>
               <option value="$">$</option>
               <option value="£">£</option>

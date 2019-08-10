@@ -7,23 +7,23 @@ import { localDate } from '../utils/Localization.jsx'
 class Group extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { entries: this.props.group.entries }
+    this.state = { entries: props.group.entries }
   }
 
-  // FIXME doesn't work when added new entries
-  // TODO refactor to use only 1 method with if else based on attribute name?
-  handleGroupAmountsChange = (entry_id, entry_amount) => {
-    this.setState((prevState) => ({
-      entries: prevState.entries.map(
-        entry => (entry.id === entry_id ? Object.assign(entry, { amount: entry_amount }) : entry)
-      )
-    }))
+  static getDerivedStateFromProps(props, currentState) {
+    if (props.group.entries.length !== currentState.entries.length) {
+      return {
+        entries: props.group.entries
+      }
+    } else {
+      return currentState
+    }
   }
 
-  handleGroupCurrenciesChange = (entry_id, entry_currency) => {
+  handleGroupChange = (entry_id, attribute, value) => {
     this.setState((prevState) => ({
       entries: prevState.entries.map(
-        entry => (entry.id === entry_id ? Object.assign(entry, { currency: entry_currency }) : entry)
+        entry => (entry.id === entry_id ? Object.assign(entry, { [attribute]: value }) : entry)
       )
     }))
   }
@@ -62,8 +62,7 @@ class Group extends React.Component {
           <Entry
             entry={entry}
             groupIndex={this.props.groupIndex}
-            handleGroupAmountsChange={this.handleGroupAmountsChange}
-            handleGroupCurrenciesChange={this.handleGroupCurrenciesChange}
+            handleGroupChange={this.handleGroupChange}
             handleUpdate={this.props.handleUpdate}
             handleDelete={this.props.handleDelete} />
         </div>
