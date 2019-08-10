@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import Entry from './Entry'
 import { localDate } from '../utils/Localization.jsx'
 
-// TODO function component? vs. I'll need state for group calculations and colors?
 class Index extends React.Component {
   groupCalculations = (group) => {
     // find all used currencies

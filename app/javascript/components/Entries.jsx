@@ -28,7 +28,7 @@ class Entries extends React.Component {
                                            amount: newEntry.amount,
                                            currency: newEntry.currency } })
 
-    fetch('api/v1/entries.json', {
+    fetch('/api/v1/entries.json', {
       method: 'POST',
       headers: this.setHeaders(),
       body: body

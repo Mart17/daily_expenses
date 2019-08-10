@@ -21,12 +21,9 @@ describe('Form component', () => {
     const input2  = wrapper.find('input').at(1)
     const select1 = wrapper.find('select').at(0)
 
-    input1.instance().value = 'Netflix'
-    input1.simulate('change')
-    input2.instance().value = '5.55'
-    input2.simulate('change')
-    select1.instance().value = '$'
-    select1.simulate('change')
+    input1.simulate('change', { target: { name: 'name', value: 'Netflix' } })
+    input2.simulate('change', { target: { name: 'amount', value: '5.55' } })
+    select1.simulate('change', { target: { name: 'currency', value: '$' } })
 
     expect(wrapper.state().entry).toEqual({ 'name': 'Netflix', 'amount': '5.55', 'currency': '$' })
 
