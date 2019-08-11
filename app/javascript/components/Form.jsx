@@ -2,18 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class Form extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
-    this.initialValue = { entry: { name: '', amount: '', currency: '' } }
+    this.initialValue = { entry: { name: '', amount: '', currency: props.defaultCurrency } }
     this.state = this.initialValue
   }
 
   handleChange = event => {
-    let newState = JSON.parse(JSON.stringify(this.state))
-    newState.entry[event.target.name] = event.target.value
+    event.persist()
 
-    this.setState(newState)
+    this.setState((prevState) => ({
+      entry: {
+        ...prevState.entry,
+        [event.target.name]: event.target.value
+      }
+    }))
   }
 
   submitForm = () => {
@@ -31,25 +35,28 @@ class Form extends React.Component {
                 className="form-control form-control-lg input-spaced"
                 placeholder="Name"
                 type="text"
+                maxLength="50"
                 name="name"
                 value={this.state.entry.name}
                 onChange={this.handleChange} />
               <input
                 className="form-control form-control-lg input-spaced"
                 placeholder="Amount"
-                type="text"
-                size="8"
+                type="number"
+                step="any"
                 name="amount"
                 value={this.state.entry.amount}
                 onChange={this.handleChange} />
-              <input
+              <select
                 className="form-control form-control-lg input-spaced"
-                placeholder="Currency"
-                type="text"
-                size="3"
                 name="currency"
+                title="Change default currency in the settings"
                 value={this.state.entry.currency}
-                onChange={this.handleChange} />
+                onChange={this.handleChange} >
+                <option value="€">€</option>
+                <option value="$">$</option>
+                <option value="£">£</option>
+              </select>
               <input
                 type="button"
                 className="submit"

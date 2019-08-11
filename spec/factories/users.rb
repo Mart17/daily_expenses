@@ -6,5 +6,6 @@ FactoryBot.define do
     confirmation_token { SecureRandom.hex }
     confirmed_at { Time.now }
     confirmation_sent_at { Time.now - 60.seconds }
+    default_currency { 0 }
   end
 end
