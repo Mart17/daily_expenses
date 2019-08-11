@@ -25,13 +25,13 @@ describe('Form component', () => {
     input2.simulate('change', { target: { name: 'amount', value: '5.55' } })
     select1.simulate('change', { target: { name: 'currency', value: '$' } })
 
-    expect(wrapper.state().entry).toEqual({ 'name': 'Netflix', 'amount': '5.55', 'currency': '$' })
+    expect(wrapper.state().entry).toEqual({ name: 'Netflix', amount: '5.55',currency: '$' })
 
     wrapper.find('input').at(2).simulate('click')
 
-    expect(wrapper.state().entry).toEqual({ 'name': '', 'amount': '', 'currency': '€' })
+    expect(wrapper.state().entry).toEqual({ name: '', amount: '', currency: '€' })
 
     expect(mockFunc.mock.calls.length).toBe(1)
-    expect(mockFunc).toBeCalledWith({ 'name': 'Netflix', 'amount': '5.55', 'currency': '$' })
+    expect(mockFunc).toBeCalledWith({ name: 'Netflix', amount: '5.55', currency: '$' })
   })
 })
