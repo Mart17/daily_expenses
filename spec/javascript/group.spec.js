@@ -3,23 +3,23 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import Group from 'components/Group'
 
-const data = { "date":"2019-06-27",
-                "entries":[{ "id":"7","amount":"5.55","currency":"€","user_id":"3",
-                             "created_at":"2019-06-27T18:17:02.504Z",
-                             "updated_at":"2019-06-27T18:17:02.504Z",
-                             "name":"Netflix" },
-                           { "id":"8","amount":"8.22","currency":"€","user_id":"3",
-                                        "created_at":"2019-06-27T18:17:22.504Z",
-                                        "updated_at":"2019-06-27T18:17:22.504Z",
-                                        "name":"Drink" },
-                           { "id":"9","amount":"1.26","currency":"$","user_id":"3",
-                                        "created_at":"2019-06-27T18:18:22.504Z",
-                                        "updated_at":"2019-06-27T18:18:22.504Z",
-                                        "name":"Apple" },
-                           { "id":"10","amount":"15.00","currency":"£","user_id":"3",
-                                        "created_at":"2019-06-27T18:18:22.504Z",
-                                        "updated_at":"2019-06-27T18:18:22.504Z",
-                                        "name":"Uber" }]
+const data = { date: "2019-06-27",
+                entries:[{ id: 7, amount: "5.55", currency: "€", user_id: 3,
+                             created_at: "2019-06-27T18:17:02.504Z",
+                             updated_at: "2019-06-27T18:17:02.504Z",
+                             name: "Netflix" },
+                           { id: 8, amount: "8.22", currency: "€", user_id: 3,
+                                        created_at: "2019-06-27T18:17:22.504Z",
+                                        updated_at: "2019-06-27T18:17:22.504Z",
+                                        name:"Drink" },
+                           { id: 9, amount: "1.26", currency: "$", user_id: 3,
+                                        created_at: "2019-06-27T18:18:22.504Z",
+                                        updated_at: "2019-06-27T18:18:22.504Z",
+                                        name:"Apple" },
+                           { id: 10, amount: "15.00", currency: "£", user_id: 3,
+                                        created_at: "2019-06-27T18:18:22.504Z",
+                                        updated_at: "2019-06-27T18:18:22.504Z",
+                                        name: "Uber" }]
               }
 
 describe('Group component', () => {
