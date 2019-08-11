@@ -52,7 +52,7 @@ class Group extends React.Component {
         const amount = Object.values(currencyAmounts)[index] / 100
 
         return (
-          <span className={setAmountColorClass(amount)}>
+          <span key={key} className={setAmountColorClass(amount)}>
             {`${key}: ${amount}`}
           </span>
         )
@@ -80,7 +80,7 @@ class Group extends React.Component {
         <b>
           {localDate(group.date, 'en-US')}
         </b>
-        <span className="calculations"> ({groupCalculations(this.props.group.entries)})</span>
+        <span className="calculations"> ({groupCalculations(this.state.entries)})</span>
         <br />
         <div className="entry-group">
           {entries}

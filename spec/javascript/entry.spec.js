@@ -42,15 +42,20 @@ describe('Entry component', () => {
   })
 
   it('updates record on change of amount', () => {
-    const mockHandleUpdate = jest.fn()
+    const mockHandleUpdate      = jest.fn()
+    const mockHandleGroupChange = jest.fn()
 
-    const wrapper = mount(<Entry entry={data} groupIndex={0} handleUpdate={mockHandleUpdate} />)
+    const wrapper = mount(<Entry entry={data}
+                           groupIndex={0}
+                           handleUpdate={mockHandleUpdate}
+                           handleGroupChange={mockHandleGroupChange} />)
 
     const amountInput = wrapper.find('input').at(1)
 
     amountInput.instance().value = '-5.55'
     amountInput.simulate('change')
 
+    expect(mockHandleGroupChange).toBeCalledWith('7', 'amount', '-5.55')
     expect(mockHandleUpdate).toBeCalledWith('7', 'amount', '-5.55')
   })
 })
