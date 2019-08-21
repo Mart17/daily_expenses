@@ -11,6 +11,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'jbuilder',     '~> 2.5'
 gem 'jquery-rails', '>= 4.3.1'
+gem 'nokogiri',     '1.10.4'
 gem 'pg'
 gem 'puma',         '~> 3.11'
 gem 'rails',        '~> 5.2.3'
@@ -37,7 +38,7 @@ end
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'capybara'
+  gem 'capybara',              '3.28.0'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-rails'
