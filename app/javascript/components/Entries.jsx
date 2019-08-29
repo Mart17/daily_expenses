@@ -28,19 +28,11 @@ class Entries extends React.Component {
   }
 
   handleCreate = newEntry => {
-    const body = JSON.stringify({ entry: { name: newEntry.name,
-                                           amount: newEntry.amount,
-                                           currency: newEntry.currency } })
-
-    fetch('/api/v1/entries.json', {
-      method: 'POST',
+    axios.post('/api/v1/entries.json', {
       headers: this.setHeaders(),
-      body: body
+      entry: { name: newEntry.name, amount: newEntry.amount, currency: newEntry.currency }
     }).then((response) => {
-      return response.json()
-    })
-    .then((newEntryData) => {
-      this.createEntry(newEntryData)
+      this.createEntry(response.data)
     })
   }
 
@@ -62,18 +54,14 @@ class Entries extends React.Component {
   }
 
   handleUpdate = (id, attribute, value) => {
-    const body = JSON.stringify({ entry: { [attribute]: value } })
-
-    fetch(`/api/v1/entries/${id}.json`, {
-      method: 'PUT',
+    axios.put(`/api/v1/entries/${id}.json`, {
       headers: this.setHeaders(),
-      body: body
+      entry: { [attribute]: value }
     })
   }
 
   handleDelete = (id, groupIndex) => {
-    fetch(`/api/v1/entries/${id}.json`, {
-      method: 'DELETE',
+    axios.delete(`/api/v1/entries/${id}.json`, {
       headers: this.setHeaders()
     }).then((response) => {
       this.deleteEntry(id, groupIndex)
