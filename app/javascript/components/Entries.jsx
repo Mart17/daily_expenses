@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import Form from './Form'
 import Index from './Index'
+import axios from 'axios'
 import { localDate } from '../utils/Localization.jsx'
 import { debounce } from 'throttle-debounce'
 
@@ -15,10 +16,13 @@ class Entries extends React.Component {
   }
 
   setHeaders = () => {
+    axios.defaults.xsrfCookieName = "CSRF-TOKEN"
+    axios.defaults.xsrfHeaderName = "X-CSRF-Token"
+    axios.defaults.withCredentials = true
+
     return (
       {
         'Content-Type': 'application/json',
-        'Authentication-Token': this.authToken
       }
     )
   }
@@ -96,14 +100,11 @@ class Entries extends React.Component {
   }
 
   componentDidMount() {
-	  fetch('/api/v1/current_user_entries.json', {
+	  axios.get('/api/v1/current_user_entries.json', {
       headers: this.setHeaders()
     })
   	.then((response) => {
-      return response.json()
-    })
-  	.then((data) => {
-      this.setState({ groupedEntries: data })
+      this.setState({ groupedEntries: response.data })
     })
   }
 
