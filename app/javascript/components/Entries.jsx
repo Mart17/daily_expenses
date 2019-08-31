@@ -11,7 +11,6 @@ class Entries extends React.Component {
   constructor(props) {
     super(props)
     this.state           = { groupedEntries: [] }
-    this.authToken       = props.authenticity_token
     this.defaultCurrency = props.default_currency
   }
 
