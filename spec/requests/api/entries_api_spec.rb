@@ -40,16 +40,14 @@ describe 'entries API requests', type: :request do
     end
 
     it "can't update entry" do
-      put "/api/v1/entries/#{entry.id}", headers: { 'Authentication-Token':
-        incorrect_user.authenticity_token }, params: params
+      put "/api/v1/entries/#{entry.id}", params: params
 
       expect(response).to have_http_status(:unauthorized)
       expect(JSON.parse(response.body)['error']).to eq(auth_msg)
     end
 
     it "can't delete entry" do
-      delete "/api/v1/entries/#{entry.id}", headers: { 'Authentication-Token':
-        incorrect_user.authenticity_token }
+      delete "/api/v1/entries/#{entry.id}"
 
       expect(response).to have_http_status(:unauthorized)
       expect(JSON.parse(response.body)['error']).to eq(auth_msg)
@@ -62,23 +60,39 @@ describe 'entries API requests', type: :request do
       sign_in user
     end
 
+    context 'without proper headers' do
+      before do
+        ActionController::Base.allow_forgery_protection = true
+      end
+
+      after do
+        ActionController::Base.allow_forgery_protection = false
+      end
+
+      it "can't create new entry" do
+        expect { post '/api/v1/entries',
+                 headers: { 'X-CSRF-Token': "I'mafakecsrftoken123" },
+                 params: params }.to raise_error(ActionController::InvalidAuthenticityToken)
+
+        expect(Entry.count).to eql(0)
+      end
+    end
+
     it "can create new entry" do
-      post '/api/v1/entries', headers: { 'Authentication-Token': user.authenticity_token },
-        params: params
+      post '/api/v1/entries', params: params
 
       expect(response).to have_http_status(:ok)
       expect(Entry.count).to eql(1)
     end
 
     it "can update entry" do
-      put "/api/v1/entries/#{entry.id}", headers: { 'Authentication-Token': user.authenticity_token },
-        params: params
+      put "/api/v1/entries/#{entry.id}", params: params
 
       expect(response).to have_http_status(:ok)
     end
 
     it "can delete entry" do
-      delete "/api/v1/entries/#{entry.id}", headers: { 'Authentication-Token': user.authenticity_token }
+      delete "/api/v1/entries/#{entry.id}"
 
       expect(response).to have_http_status(:no_content)
       expect(Entry.count).to eql(0)
