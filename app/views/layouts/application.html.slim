@@ -5,14 +5,15 @@ html
     title
       = content_for?(:title) ? yield(:title) : 'Daily Expenses'
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Daily Expenses'}"
-    == stylesheet_link_tag "application", :media => 'all'
-    == javascript_include_tag 'application'
-    == javascript_pack_tag 'application'
-    == csrf_meta_tags
+    = stylesheet_link_tag "application", :media => 'all'
+    = javascript_include_tag 'application'
+    = javascript_pack_tag 'application'
+    = csrf_meta_tags
+    = favicon_link_tag asset_path('dollar_icon.png')
   body
     header
-      == render 'layouts/navigation'
+      = render 'layouts/navigation'
     main[role="main"]
       .container
-        == render 'layouts/messages'
-        == yield
+        = render 'layouts/messages'
+        = yield
