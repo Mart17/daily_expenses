@@ -1,6 +1,6 @@
 - if current_user
   h3 = "Welcome #{current_user.name}"
-  h5 What have been your expenses today? 🤑
+  h5 What have been your expenses today? 
 
   = react_component('Entries', { default_currency: @default_currency } )
 

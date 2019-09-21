@@ -1,12 +1,20 @@
 @import "bootstrap";
 @import url(https://use.fontawesome.com/releases/v5.10.0/css/all.css);
+@import url(https://fonts.googleapis.com/css?family=PT+Sans&display=swap);
 
 // Variables
 $ligh-grey: rgb(244, 244, 244);
 
 // General
+body {
+  background: url(background.png) repeat;
+}
 main {
   margin-top: 30px;
+  font-family: 'PT Sans', sans-serif;
+}
+.navbar {
+  background-color: #fff;
 }
 
 // Colors
@@ -60,6 +68,7 @@ main {
 // Entry & entry forms
 .entry-form fieldset {
   @extend .card;
+  @extend .bg-light;
   display: inline;
   padding: 10px;
 }
@@ -80,7 +89,7 @@ main {
   @extend .card;
   display: inline-block;
   padding: 10px;
-  background-color: $ligh-grey;
+  @extend .bg-light;
   margin-bottom: 15px;
 }
 .entry {

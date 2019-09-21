@@ -1,4 +1,4 @@
-nav.navbar.navbar-expand-sm.bg-light
+nav.navbar.navbar-expand-sm.navbar-light
   .container
     button.navbar-toggler type="button" data-toggle="collapse" data-target="#collapseNav"
       i.fas.fa-bars
@@ -6,12 +6,10 @@ nav.navbar.navbar-expand-sm.bg-light
       ul.navbar-nav
         = render 'layouts/navigation_links'
       .ml-auto
-      - if current_user
-        = current_user.email
-        |  (
-        = link_to 'Log out', destroy_user_session_path, method: :delete
-        | )
-      - else
         ul.navbar-nav
-          li.nav-item = link_to 'Sign up', new_user_registration_path, class: 'nav-link'
-          li.nav-item = link_to 'Log in', new_user_session_path, class: 'nav-link'
+          - if current_user
+            li.nav-item
+              = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'nav-link'
+          - else
+            li.nav-item = link_to 'Sign up', new_user_registration_path, class: 'nav-link'
+            li.nav-item = link_to 'Log in', new_user_session_path, class: 'nav-link'
