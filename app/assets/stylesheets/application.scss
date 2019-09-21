@@ -2,9 +2,6 @@
 @import url(https://use.fontawesome.com/releases/v5.10.0/css/all.css);
 @import url(https://fonts.googleapis.com/css?family=PT+Sans&display=swap);
 
-// Variables
-$ligh-grey: rgb(244, 244, 244);
-
 // General
 body {
   background: url(background.png) repeat;
@@ -15,6 +12,9 @@ main {
 }
 .navbar {
   background-color: #fff;
+}
+a {
+  color: #26a0c4;
 }
 
 // Colors
@@ -41,7 +41,7 @@ main {
 }
 .authform .button {
   @extend .btn;
-  @extend .btn-primary;
+  @extend .btn-info;
 }
 .authform .form-group {
   margin-left: 5px;
@@ -80,7 +80,7 @@ main {
 }
 .submit {
   @extend .btn;
-  @extend .btn-primary;
+  @extend .btn-info;
   @extend .btn-lg;
   margin: 3px;
 }

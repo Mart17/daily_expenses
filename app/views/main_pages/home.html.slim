@@ -1,9 +1,9 @@
 - if current_user
   h3 = "Welcome #{current_user.name}"
-  h5 What have been your expenses today? 
+  h5 What have been your expenses today?
 
   = react_component('Entries', { default_currency: @default_currency } )
 
 - else
   h3 Have your expenses under control!
-  h5 = link_to 'Start now', new_user_registration_path
+  h5 = link_to 'Start now', new_user_registration_path, class: 'btn btn-info btn-lg'
