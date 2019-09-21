@@ -1,15 +1,15 @@
 nav.navbar.navbar-expand-sm.navbar-light
-  .container
-    button.navbar-toggler type="button" data-toggle="collapse" data-target="#collapseNav"
-      i.fas.fa-bars
-    .collapse.navbar-collapse id="collapseNav"
-      ul.navbar-nav
-        = render 'layouts/navigation_links'
-      .ml-auto
+  .container-fluid
+      button.navbar-toggler type="button" data-toggle="collapse" data-target="#collapseNav"
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse id="collapseNav"
         ul.navbar-nav
-          - if current_user
-            li.nav-item
-              = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'nav-link'
-          - else
-            li.nav-item = link_to 'Sign up', new_user_registration_path, class: 'nav-link'
-            li.nav-item = link_to 'Log in', new_user_session_path, class: 'nav-link'
+          = render 'layouts/navigation_links'
+        .ml-auto
+          ul.navbar-nav
+            - if current_user
+              li.nav-item
+                = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'nav-link'
+            - else
+              li.nav-item = link_to 'Sign up', new_user_registration_path, class: 'nav-link'
+              li.nav-item = link_to 'Log in', new_user_session_path, class: 'nav-link'
